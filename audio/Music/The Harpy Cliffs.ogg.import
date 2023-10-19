@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dksfbja1u6vyl"
+path="res://.godot/imported/The Harpy Cliffs.ogg-05ef7568cfdcdd927c10de21698c7180.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/Music/The Harpy Cliffs.ogg"
+dest_files=["res://.godot/imported/The Harpy Cliffs.ogg-05ef7568cfdcdd927c10de21698c7180.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

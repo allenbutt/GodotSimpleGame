@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://th5eoe8floxx"]
+
+[ext_resource type="Script" path="res://scripts/player_projectile.gd" id="1_swdtk"]
+[ext_resource type="Texture2D" uid="uid://b8i0idqm3llfc" path="res://sprites/New Art/Kyrise's 16x16 RPG Icon Pack - V1.3/icons/16x16/sword_01b.png" id="1_wnlxu"]
+
+[sub_resource type="GDScript" id="GDScript_blwv6"]
+script/source = "extends Area2D
+
+var damage = global.player_throw_damage
+var fire = false
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6o1bq"]
+size = Vector2(17, 6)
+
+[node name="player_projectile" type="Node2D"]
+position = Vector2(62, 43)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_swdtk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 2.35619
+texture = ExtResource("1_wnlxu")
+
+[node name="AttackHitboxArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+monitoring = false
+script = SubResource("GDScript_blwv6")
+
+[node name="AttackCollision" type="CollisionShape2D" parent="AttackHitboxArea"]
+shape = SubResource("RectangleShape2D_6o1bq")
+
+[node name="ImpactDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 5
+
+[node name="AttackCollisionSide" type="CollisionShape2D" parent="ImpactDetector"]
+shape = SubResource("RectangleShape2D_6o1bq")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[connection signal="area_entered" from="ImpactDetector" to="." method="_on_impact_detector_area_entered"]
+[connection signal="body_entered" from="ImpactDetector" to="." method="_on_impact_detector_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

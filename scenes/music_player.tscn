@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://dn26stiw6c0fo"]
+
+[ext_resource type="AudioStream" uid="uid://ditv2f0ii6ok8" path="res://audio/Music/Marching Orcs.ogg" id="1_0tdtp"]
+[ext_resource type="Script" path="res://scripts/music_player.gd" id="1_l2jbh"]
+[ext_resource type="AudioStream" uid="uid://dyyryk3yky80d" path="res://audio/Music/The Orcan Road-extended.ogg" id="2_q7wsw"]
+[ext_resource type="AudioStream" uid="uid://w7ku6copbloc" path="res://audio/Music/Celtic_Elf_Theme.ogg" id="4_fsade"]
+[ext_resource type="AudioStream" uid="uid://d2lc2r0bunnm0" path="res://audio/Music/Forest Theme.ogg" id="5_748sl"]
+[ext_resource type="AudioStream" uid="uid://blun6emebayfe" path="res://audio/Music/Prison Escape [TubeRipper.com].mp3" id="6_vfhii"]
+[ext_resource type="AudioStream" uid="uid://dk2ccrq6qnuc1" path="res://audio/Music/MaarDecember8th.ogg" id="7_f54p3"]
+
+[node name="music_player" type="Node"]
+script = ExtResource("1_l2jbh")
+
+[node name="SongWorld" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_0tdtp")
+bus = &"Music"
+
+[node name="SongLevel1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_q7wsw")
+bus = &"Music"
+
+[node name="SongLevel2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_fsade")
+volume_db = -10.0
+bus = &"Music"
+
+[node name="SongLevel3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_748sl")
+bus = &"Music"
+
+[node name="SongLevel4" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_vfhii")
+bus = &"Music"
+
+[node name="SongFinalBoss" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_f54p3")
+bus = &"Music"

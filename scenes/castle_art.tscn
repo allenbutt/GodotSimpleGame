@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bphak8w06jy82"]
+
+[ext_resource type="Texture2D" uid="uid://bx3l5uxflhg48" path="res://sprites/New Art/Castle/Castle_Edited_Closed.png" id="1_mjv3v"]
+[ext_resource type="Texture2D" uid="uid://c38ahw472mv12" path="res://sprites/New Art/Castle/Castle_Edited_Open.png" id="2_235qh"]
+
+[node name="CastleArt" type="Node2D"]
+scale = Vector2(0.8, 0.8)
+
+[node name="Castle_Closed" type="Sprite2D" parent="."]
+texture = ExtResource("1_mjv3v")
+
+[node name="Castle_Open" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_235qh")

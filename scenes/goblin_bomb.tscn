@@ -1,0 +1,175 @@
+[gd_scene load_steps=9 format=3 uid="uid://b5qurkpebilpx"]
+
+[ext_resource type="Script" path="res://scripts/goblin_bomb.gd" id="1_nrdhb"]
+[ext_resource type="Texture2D" uid="uid://b7gm6sasisfyw" path="res://sprites/New Art/Monster_Creatures_Fantasy/Goblin/Bomb_sprite.png" id="1_vpwsb"]
+[ext_resource type="PackedScene" uid="uid://dd1s28kbfnt7j" path="res://scenes/sfx.tscn" id="3_0l6g4"]
+
+[sub_resource type="Animation" id="Animation_bbcqv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackHitboxAreaSide/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ev0l4"]
+resource_name = "ready"
+length = 2.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 0, 1, 2, 0, 1, 2, 3, 4, 5, 6, 9, 10, 12, 13, 18]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(1, 1), Vector2(2, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackHitboxAreaSide/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_bomb_sound"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nk372"]
+_data = {
+"RESET": SubResource("Animation_bbcqv"),
+"ready": SubResource("Animation_ev0l4")
+}
+
+[sub_resource type="GDScript" id="GDScript_k70vo"]
+script/source = "extends Area2D
+
+var damage = global.goblin_bomb_damage
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4k4ni"]
+radius = 18.0278
+
+[node name="goblin_bomb" type="Node2D"]
+scale = Vector2(0.67, 0.67)
+script = ExtResource("1_nrdhb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_vpwsb")
+hframes = 19
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_nk372")
+}
+
+[node name="AttackHitboxAreaSide" type="Area2D" parent="Sprite2D"]
+visible = false
+position = Vector2(-19, -14)
+collision_layer = 8
+collision_mask = 0
+script = SubResource("GDScript_k70vo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/AttackHitboxAreaSide"]
+position = Vector2(22, 16)
+shape = SubResource("CircleShape2D_4k4ni")
+disabled = true
+
+[node name="movement_timer" type="Timer" parent="."]
+
+[node name="destroy_timer" type="Timer" parent="."]
+wait_time = 1.8
+autostart = true
+
+[node name="sfx" parent="." instance=ExtResource("3_0l6g4")]
+
+[connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="movement_timer" to="." method="_on_movement_timer_timeout"]
+[connection signal="timeout" from="destroy_timer" to="." method="_on_destroy_timer_timeout"]

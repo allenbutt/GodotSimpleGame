@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://sfr3gegi6xqu"]
+
+[ext_resource type="Texture2D" uid="uid://c0em8hivwatdi" path="res://sprites/ui/textbox_template.png" id="1_lfpid"]
+
+[node name="Sign Textbox" type="CanvasLayer"]
+layer = 0
+follow_viewport_enabled = true
+
+[node name="TextboxTemplate" type="Sprite2D" parent="."]
+position = Vector2(50, 13)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_lfpid")

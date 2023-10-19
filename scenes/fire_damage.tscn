@@ -1,0 +1,89 @@
+[gd_scene load_steps=12 format=3 uid="uid://b0j131rruylb0"]
+
+[ext_resource type="Script" path="res://scripts/fire_damage.gd" id="1_n57te"]
+[ext_resource type="Texture2D" uid="uid://dxdvwrbs6y7sq" path="res://sprites/New Art/Fire/png/orange/loops/burning_loop_1.png" id="2_itsew"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd8c0"]
+atlas = ExtResource("2_itsew")
+region = Rect2(0, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhc8t"]
+atlas = ExtResource("2_itsew")
+region = Rect2(24, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7c4r"]
+atlas = ExtResource("2_itsew")
+region = Rect2(48, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agxdt"]
+atlas = ExtResource("2_itsew")
+region = Rect2(72, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gol1a"]
+atlas = ExtResource("2_itsew")
+region = Rect2(96, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8magt"]
+atlas = ExtResource("2_itsew")
+region = Rect2(120, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21luw"]
+atlas = ExtResource("2_itsew")
+region = Rect2(144, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23yj2"]
+atlas = ExtResource("2_itsew")
+region = Rect2(168, 0, 24, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7vbsh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd8c0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhc8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7c4r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agxdt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gol1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8magt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21luw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23yj2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Fire Damage" type="Node2D"]
+script = ExtResource("1_n57te")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7vbsh")
+autoplay = "default"
+frame = 6
+frame_progress = 0.0181985
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="Tick Damage" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Tick Damage" to="." method="_on_tick_damage_timeout"]
